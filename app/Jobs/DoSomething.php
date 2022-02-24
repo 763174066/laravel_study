@@ -33,11 +33,6 @@ class DoSomething implements ShouldQueue
     public function handle()
     {
         //
-
-        for ($i=0;$i<20;$i++){
-            Test::create(['num'=>$i]);
-        }
-
-
+        Log::info('111');
     }
 }
