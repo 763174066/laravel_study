@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
+        "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
         "overtrue/laravel-lang": "^5.0",
