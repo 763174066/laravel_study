@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\system\TestController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix' => 'system/test'
+    'prefix' => 'test'
 ], function () {
     Route::any('index', [TestController::class, 'index']);
 });

@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Jobs\DoSomething;
 use App\Jobs\FirstJob;
+use App\Jobs\WeatherReport;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,6 +29,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->job(new FirstJob())->everyMinute();
+        $schedule->job(new WeatherReport())->dailyAt('21:50');
+
     }
 
     /**
