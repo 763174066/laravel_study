@@ -43,6 +43,6 @@ class WeatherReport implements ShouldQueue
                 'content' => '渝北区今日天气：最高温' . $data['daily'][0]['tempMax'] . '度，最低温' . $data['daily'][0]['tempMin'] . '度，大部分时间为' . $data['daily'][0]['textDay'],
             ]
         ];
-        Http::post('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=dcde8c50-c719-4846-b8c1-46a6f55dadbc', $params);
+        Http::post(config('qywx.com'), $params);
     }
 }

@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->job(new FirstJob())->everyMinute();
-        $schedule->job(new WeatherReport())->dailyAt('21:50');
+        $schedule->job(new WeatherReport())->dailyAt('7:30');
 
     }
 
