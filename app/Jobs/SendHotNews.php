@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class SendHotNews implements ShouldQueue
@@ -31,7 +32,25 @@ class SendHotNews implements ShouldQueue
      */
     public function handle()
     {
-        //
-        Log::info(22222);
+        $res = Http::get('http://api.tianapi.com/networkhot/index?key=140d822a50fe8ec17b1a31d9f6114ea6');
+        $data = $res->json();
+        if ($data['code'] != 200) {
+            return;
+        }
+        $str = '';
+        foreach ($data['newslist'] as $item) {
+            $str .= ("#### " . $item['title'] . "
+            ");
+        }
+
+        $params = [
+            'msgtype' => 'markdown',
+            'markdown' => [
+                'content' => " **3分钟了解国内外要闻**
+                " . $str
+            ]
+        ];
+
+        Http::asJson()->post(config('qywx.com'), $params);
     }
 }
