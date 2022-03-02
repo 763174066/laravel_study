@@ -4,6 +4,8 @@ namespace App\Console;
 
 use App\Jobs\DoSomething;
 use App\Jobs\FirstJob;
+use App\Jobs\SendHotNews;
+use App\Jobs\WeatherReport;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -21,13 +23,15 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->job(new FirstJob())->everyMinute();
+        $schedule->job(new SendHotNews())->dailyAt('8:20');
+        $schedule->job(new WeatherReport())->dailyAt('7:30');
+
     }
 
     /**
@@ -37,7 +41,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
