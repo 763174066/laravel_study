@@ -75,7 +75,8 @@ class LessonWatch implements ShouldQueue
                     if($class->student_late_notice_times <= 2){
                         //通知3次后停止通知
                         $class->increment('student_late_notice_times');
-                        $msgService->sendMsg($lesson['name'].'学生迟到了，请检查');
+                        $class->save();
+                        $msgService->sendMsg($lesson['name'].'---学生迟到了，请检查');
                     }
                 }
 
@@ -96,7 +97,8 @@ class LessonWatch implements ShouldQueue
                     if($class->student_late_notice_times <= 3){
                         //通知3次后停止通知
                         $class->increment('teacher_late_notice_times');
-                        $msgService->sendMsg($lesson['name'].'外教迟到了，请检查');
+                        $class->save();
+                        $msgService->sendMsg($lesson['name'].'---外教迟到了，请检查');
                     }
                 }
             }
