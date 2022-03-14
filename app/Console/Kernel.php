@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->job(new SendHotNews())->dailyAt('8:20');
         $schedule->job(new WeatherReport())->dailyAt('7:30');
-        $schedule->job(new LessonWatch())->everyMinute();
+//        $schedule->job(new LessonWatch())->everyMinute();
         $schedule->job(new MorningLessonNumQuery())->dailyAt('17:55');
 
     }
