@@ -23,8 +23,6 @@ class TestController extends Controller
 
     }
 
-    private function createClass(){
 
-    }
 
 }
