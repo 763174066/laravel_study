@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class LessonWatch implements ShouldQueue
 {
@@ -32,6 +33,7 @@ class LessonWatch implements ShouldQueue
      */
     public function handle()
     {
+        Log::info('------------------------------开始监课------------------------------');
         $dataArr = getdate();
 
         $startTimestamp = strtotime($dataArr['year'].'-'.$dataArr['mon'].'-'.$dataArr['mday'].' 00:00:00');
@@ -99,5 +101,7 @@ class LessonWatch implements ShouldQueue
                 }
             }
         }
+
+        Log::info('------------------------------结束监课------------------------------');
     }
 }
