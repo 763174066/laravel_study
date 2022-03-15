@@ -33,7 +33,7 @@ class LessonWatch implements ShouldQueue
      */
     public function handle()
     {
-        Log::info('------------------------------开始监课------------------------------');
+        Log::info('--------------开始监课--------------');
         $dataArr = getdate();
 
         $startTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 00:00:00');
@@ -76,7 +76,7 @@ class LessonWatch implements ShouldQueue
                     if ($class->student_late_notice_times <= 2) {
                         //通知3次后停止通知
                         $class->increment('student_late_notice_times');
-                        $msgService->sendStudentMsg($lesson['name'] . '---学生迟到了，请检查');
+                        $msgService->sendStudentMsg($lesson['name'] . '##学生未上线，请检查');
                     }
                 }
 
@@ -96,13 +96,12 @@ class LessonWatch implements ShouldQueue
                     if ($class->teacher_late_notice_times <= 2) {
                         //通知3次后停止通知
                         $class->increment('teacher_late_notice_times');
-//                        $class->save();
-                        $msgService->sendTeacherMsg($lesson['name'] . '---外教迟到了，请检查');
+                        $msgService->sendTeacherMsg($lesson['name'] . '##外教未上线，请检查');
                     }
                 }
             }
         }
 
-        Log::info('------------------------------结束监课------------------------------');
+        Log::info('--------------结束监课--------------');
     }
 }
