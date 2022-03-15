@@ -57,6 +57,11 @@ class LessonWatch implements ShouldQueue
         if (!empty($res['data']['html'])) {
             foreach ($res['data']['html'] as $lesson) {
 
+                if (substr_count($lesson['name'], 'lesson') == 0) {
+                    continue;
+                }
+
+
                 //学生是否在线
                 $studentNotInClass = true;
                 foreach ($lesson['attendance'] as $item) {
@@ -96,7 +101,7 @@ class LessonWatch implements ShouldQueue
                     if ($class->teacher_late_notice_times <= 2) {
                         //通知3次后停止通知
                         $class->increment('teacher_late_notice_times');
-                        $msgService->sendTeacherMsg($lesson['name'] . '##外教:'.$lesson['teacherInfo']['teacherName'].'未上线，请检查');
+                        $msgService->sendTeacherMsg($lesson['name'] . '##外教:' . $lesson['teacherInfo']['teacherName'] . '未上线，请检查');
                     }
                 }
             }

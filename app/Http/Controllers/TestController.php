@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClassinSubscribeMsgCollection;
+use App\Jobs\ScheduleJobs\LessonWatch;
 use App\Models\ClassinSubscribeMsg;
 use App\Models\ClassListener;
 use App\Models\Course;
@@ -20,7 +21,8 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        dd(now()->timestamp);
+        $res = substr_count('interview and demo- Drew Sisera','Interview');
+        dd($res);
     }
 
 
