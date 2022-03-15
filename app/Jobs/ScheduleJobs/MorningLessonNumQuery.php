@@ -52,6 +52,6 @@ class MorningLessonNumQuery implements ShouldQueue
 
         $url = config('classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
         $res = Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data)->json();
-        $msgService->sendMsg('明天早上9点钟之前有'.$res['data']['total'].'节课，请值班人员注意');
+        $msgService->sendStudentMsg('明天早上9点钟之前有'.$res['data']['total'].'节课，请值班人员注意');
     }
 }
