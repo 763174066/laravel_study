@@ -20,7 +20,7 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        dd(today()->month());
+        dd(now()->timestamp);
     }
 
 
