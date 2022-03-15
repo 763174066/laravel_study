@@ -61,7 +61,6 @@ class LessonWatch implements ShouldQueue
                     continue;
                 }
 
-
                 //学生是否在线
                 $studentNotInClass = true;
                 foreach ($lesson['attendance'] as $item) {
@@ -70,7 +69,7 @@ class LessonWatch implements ShouldQueue
                     }
                 }
                 //如果当前时间大于开课时间30秒，并且学生不在教室
-                if ((time() - $lesson['hours']['start']) > 30 && $studentNotInClass) {
+                if ((time() - $lesson['hours']['start']) > 20 && $studentNotInClass) {
                     $class = ClassListener::query()->firstOrCreate(
                         ['lesson_key' => $lesson['lessonKey']],
                         [
