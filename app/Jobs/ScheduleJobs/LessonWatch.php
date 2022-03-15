@@ -36,8 +36,8 @@ class LessonWatch implements ShouldQueue
         Log::info('------------------------------开始监课------------------------------');
         $dataArr = getdate();
 
-        $startTimestamp = strtotime($dataArr['year'].'-'.$dataArr['mon'].'-'.$dataArr['mday'].' 00:00:00');
-        $endTimestamp = strtotime($dataArr['year'].'-'.$dataArr['mon'].'-'.$dataArr['mday'].' 23:59:59');
+        $startTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 00:00:00');
+        $endTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 23:59:59');
 
         $data = [
             'page' => 1,
@@ -66,17 +66,18 @@ class LessonWatch implements ShouldQueue
                 }
                 //如果当前时间大于开课时间30秒，并且学生不在教室
                 if ((time() - $lesson['hours']['start']) > 30 && $studentNotInClass) {
-                    $class = ClassListener::query()->firstOrCreate([
-                        'lesson_key' => $lesson['lessonKey'],
-                        'start_at' => $lesson['hours']['start'],
-                        'end_at' => $lesson['hours']['end'],
-                        'lesson_info' => json_encode($lesson),
-                    ]);
-                    if($class->student_late_notice_times <= 2){
+                    $class = ClassListener::query()->firstOrCreate(
+                        ['lesson_key' => $lesson['lessonKey']],
+                        [
+                            'start_at' => $lesson['hours']['start'],
+                            'end_at' => $lesson['hours']['end'],
+                            'lesson_info' => json_encode($lesson),
+                        ]);
+                    if ($class->student_late_notice_times <= 2) {
                         //通知3次后停止通知
                         $class->increment('student_late_notice_times');
-                        $class->save();
-                        $msgService->sendMsg($lesson['name'].'---学生迟到了，请检查');
+//                        $class->save();
+                        $msgService->sendMsg($lesson['name'] . '---学生迟到了，请检查');
                     }
                 }
 
@@ -88,17 +89,16 @@ class LessonWatch implements ShouldQueue
 
                 //如果当前时间大于开课时间30秒，并且老师不在教室
                 if ((time() - $lesson['hours']['start']) > 30 && $teacherNotInClass) {
-                    $class = ClassListener::query()->firstOrCreate([
-                        'lesson_key' => $lesson['lessonKey'],
+                    $class = ClassListener::query()->firstOrCreate(['lesson_key' => $lesson['lessonKey'],], [
                         'start_at' => $lesson['hours']['start'],
                         'end_at' => $lesson['hours']['end'],
                         'lesson_info' => json_encode($lesson),
                     ]);
-                    if($class->student_late_notice_times <= 3){
+                    if ($class->student_late_notice_times <= 3) {
                         //通知3次后停止通知
                         $class->increment('teacher_late_notice_times');
-                        $class->save();
-                        $msgService->sendMsg($lesson['name'].'---外教迟到了，请检查');
+//                        $class->save();
+                        $msgService->sendMsg($lesson['name'] . '---外教迟到了，请检查');
                     }
                 }
             }
