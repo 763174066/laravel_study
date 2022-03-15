@@ -77,7 +77,7 @@ class LessonWatch implements ShouldQueue
                             'end_at' => $lesson['hours']['end'],
                             'lesson_info' => json_encode($lesson),
                         ]);
-                    if ($class->student_late_notice_times <= 2) {
+                    if ($class->student_late_notice_times <= 1) {
                         //通知3次后停止通知
                         $class->increment('student_late_notice_times');
                         $msgService->sendStudentMsg($lesson['name'] . '##学生未上线，请检查');
@@ -97,7 +97,7 @@ class LessonWatch implements ShouldQueue
                         'end_at' => $lesson['hours']['end'],
                         'lesson_info' => json_encode($lesson),
                     ]);
-                    if ($class->teacher_late_notice_times <= 2) {
+                    if ($class->teacher_late_notice_times <= 1) {
                         //通知3次后停止通知
                         $class->increment('teacher_late_notice_times');
                         $msgService->sendTeacherMsg($lesson['name'] . '##外教:' . $lesson['teacherInfo']['teacherName'] . '未上线，请检查');
