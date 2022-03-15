@@ -57,7 +57,7 @@ class LessonWatch implements ShouldQueue
         if (!empty($res['data']['html'])) {
             foreach ($res['data']['html'] as $lesson) {
 
-                if (substr_count($lesson['name'], 'lesson') == 0) {
+                if (substr_count($lesson['name'], 'Lesson') == 0) {
                     continue;
                 }
 
