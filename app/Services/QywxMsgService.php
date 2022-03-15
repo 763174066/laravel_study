@@ -10,9 +10,9 @@ use Psr\Http\Message\ResponseInterface;
 class QywxMsgService
 {
 
-    private $jsbUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=629e561c-baee-4321-8f43-93867edadf10';
+    private $jsbLessonWatchUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=629e561c-baee-4321-8f43-93867edadf10';
 
-    private $comLessonWatchBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=58c425f7-9152-42b6-b64d-fd4880c77a02';
+    private $comLessonWatchBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=95ef0a15-eed7-4cae-8ba4-f6591aad9770';
 
     /**
      * 学生信息发送到技术部群
@@ -26,7 +26,7 @@ class QywxMsgService
                 'content' => $msg
             ]
         ];
-        return Http::post($this->jsbUrl,$data)->json();
+        return Http::post($this->jsbLessonWatchUrl,$data)->json();
     }
 
     /**
