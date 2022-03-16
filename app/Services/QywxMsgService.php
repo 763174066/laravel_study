@@ -68,9 +68,9 @@ class QywxMsgService
         $data = [
             'msgtype' => 'markdown',
             'markdown' => [
-                'content' => '>**课节：**' . $lesson . '，已开始
-                              >**外教：**' . $teacher . $teacherStatusInfo . '
-                              >**中教：**' . $stu . $studentStatusInfo
+                'content' => '>#### 课节：' . $lesson . '，已开始
+                              >#### 外教：' . $teacher . $teacherStatusInfo . '
+                              >#### 中教：' . $stu . $studentStatusInfo
             ]
         ];
         return Http::post($this->comLessonWatchBotUrl, $data)->json();
