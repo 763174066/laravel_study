@@ -14,6 +14,7 @@ class QywxMsgService
 
     private $comLessonWatchBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=95ef0a15-eed7-4cae-8ba4-f6591aad9770';
 
+    private  $jsbTestBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=dcde8c50-c719-4846-b8c1-46a6f55dadbc';
     /**
      * 学生信息发送到技术部群
      * @param string $msg
@@ -60,6 +61,6 @@ class QywxMsgService
                               >**中教：**' . $stu . $studentStatusInfo
             ]
         ];
-        return Http::post($this->comLessonWatchBotUrl, $data)->json();
+        return Http::post($this->jsbTestBotUrl, $data)->json();
     }
 }
