@@ -21,11 +21,19 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $lesson = '仪陇初一6 人教版 L1 lesson - 8';
+
+
+
+        $lesson = '仪陇初一6 人教版*H L1 lesson - 8';
+
+        $new = str_replace('*','-',$lesson);
+        dd($new);
         $teacher = 'Jack';
-        $student = 'Jack';
+        $student = 'Math';
         $teacherStatus = 1; //1上线，0未上线
-        $teacherStatusInfo = $teacherStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。';
+        $teacherStatusInfo = $teacherStatus ?
+            '，状态：<font color="info">已上线</font>。' :
+            '，状态：<font color="warning">未上线</font>。';
 
         $studentStatus = 0;
         $studentPhone = 13368228333;
@@ -35,9 +43,9 @@ class TestController extends Controller
         $data = [
             'msgtype' => 'markdown',
             'markdown' => [
-                'content' => '>**课节：**' . $lesson . '
-                              >**外教：**' . $teacher . $teacherStatusInfo . '
-                              >**中教：**' . $student . $studentStatusInfo
+                'content' => '># 课节：' . $lesson . '，已开始
+                              ># 外教：' . $teacher . $teacherStatusInfo . '
+                              ># 中教：' . $student . $studentStatusInfo
             ]
         ];
         Http::post($testBotUrl, $data);
