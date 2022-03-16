@@ -48,6 +48,16 @@ class QywxMsgService
         return Http::post($this->comLessonWatchBotUrl, $data)->json();
     }
 
+    /**
+     * 发送监课信息到公司大群
+     * @param $lesson
+     * @param $teacher
+     * @param $tStatus
+     * @param $stu
+     * @param $stuStatus
+     * @param $stuPhone
+     * @return array|mixed
+     */
     public function sendWatchInfo($lesson, $teacher, $tStatus, $stu, $stuStatus, $stuPhone)
     {
         $teacherStatusInfo = $tStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。';
