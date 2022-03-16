@@ -42,10 +42,10 @@ class LessonWatch implements ShouldQueue
 
         $data = [
             'page' => 1,
-            'pageSize' => 2,
+            'pageSize' => 50,
             'startTimestamp' => $startTimestamp,
             'endTimestamp' => $endTimestamp,
-            'classTimeStatus' => '1', //2上课中，1未开始
+            'classTimeStatus' => '2', //2上课中，1未开始
             'classStatus' => 0,
             'classType' => 1,
             'sort' => 0,
