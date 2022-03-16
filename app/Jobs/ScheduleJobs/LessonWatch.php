@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use phpDocumentor\Reflection\Utils;
 
 class LessonWatch implements ShouldQueue
 {
@@ -115,8 +116,12 @@ class LessonWatch implements ShouldQueue
                         $class->increment('teacher_late_notice_times');
                     }
                 }
-                if($tStatus != 1 || $stuStatus != 1){
-                    $msgService->sendWatchInfo($lessonName,$teacher,$tStatus,$stu,$stuStatus,$stuPhone);
+                if ($tStatus != 1 || $stuStatus != 1) {
+                    if ($class->student_late_notice_times > 1 && $class->teacher_late_notice_times > 1) {
+                        return;
+                    }
+
+                    $msgService->sendWatchInfo($lessonName, $teacher, $tStatus, $stu, $stuStatus, $stuPhone);
                 }
 
             }
