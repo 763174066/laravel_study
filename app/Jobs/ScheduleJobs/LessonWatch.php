@@ -67,7 +67,7 @@ class LessonWatch implements ShouldQueue
                 $teacher = $lesson['teacherInfo']['teacherName'];
                 //外教状态
                 $tStatus = $lesson['teacherInfo']['isInClass'];
-                //学生是否在线
+                //学生不在线
                 $studentNotInClass = true;
 
                 foreach ($lesson['attendance'] as $item) {
@@ -118,7 +118,7 @@ class LessonWatch implements ShouldQueue
                         $class->teacher_late_notice_times++;
                     }
                 }
-                if ($studentNotInClass || $teacherNotInClass) {
+                if ($studentNotInClass && $teacherNotInClass) {
                     if ($class->student_late_notice_times > 1 || $class->teacher_late_notice_times > 1) {
                         return;
                     }
