@@ -16,9 +16,6 @@ class ClassListener extends Model
       'start_at',
       'end_at',
       'lesson_info',
-      'student_late_notice_times',
-      'teacher_late_notice_times',
-      'mic_notice_times',
-      'cam_notice_times',
+      'notice_times',
     ];
 }

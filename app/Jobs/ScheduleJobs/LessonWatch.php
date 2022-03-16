@@ -61,12 +61,7 @@ class LessonWatch implements ShouldQueue
                 if (substr_count($lesson['name'], 'Lesson') == 0) {
                     continue;
                 }
-                //课节名称
-                $lessonName = $lesson['name'];
-                //外教名称
-                $teacher = $lesson['teacherInfo']['teacherName'];
-                //外教状态
-                $tStatus = $lesson['teacherInfo']['isInClass'];
+
                 //学生是否在线
                 $studentNotInClass = true;
 
@@ -90,6 +85,12 @@ class LessonWatch implements ShouldQueue
 
                 //当学生或者老师有一个不在教室时，记录并发送通知
                 if ($studentNotInClass || $teacherNotInClass) {
+                    //课节名称
+                    $lessonName = $lesson['name'];
+                    //外教名称
+                    $teacher = $lesson['teacherInfo']['teacherName'];
+                    //外教状态
+                    $tStatus = $lesson['teacherInfo']['isInClass'];
                     $class = ClassListener::query()->firstOrCreate(
                         ['lesson_key' => $lesson['lessonKey']],
                         [
