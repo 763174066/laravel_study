@@ -19,14 +19,15 @@ class QywxMsgService
      * @param string $msg
      * @return array|mixed
      */
-    public function sendStudentMsg(string $msg){
+    public function sendStudentMsg(string $msg)
+    {
         $data = [
             'msgtype' => 'text',
             'text' => [
                 'content' => $msg
             ]
         ];
-        return Http::post($this->jsbLessonWatchUrl,$data)->json();
+        return Http::post($this->jsbLessonWatchUrl, $data)->json();
     }
 
     /**
@@ -34,13 +35,31 @@ class QywxMsgService
      * @param string $msg
      * @return array|mixed
      */
-    public function sendTeacherMsg(string $msg){
+    public function sendTeacherMsg(string $msg)
+    {
         $data = [
             'msgtype' => 'text',
             'text' => [
                 'content' => $msg
             ]
         ];
-        return Http::post($this->comLessonWatchBotUrl,$data)->json();
+        return Http::post($this->comLessonWatchBotUrl, $data)->json();
+    }
+
+    public function sendWatchInfo($lesson, $teacher, $tStatus, $stu, $stuStatus, $stuPhone)
+    {
+        $teacherStatusInfo = $tStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。';
+
+        $studentStatusInfo = $stuStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。联系方式：' . $stuPhone;
+
+        $data = [
+            'msgtype' => 'markdown',
+            'markdown' => [
+                'content' => '>**课节：**' . $lesson . '
+                              >**外教：**' . $teacher . $teacherStatusInfo . '
+                              >**中教：**' . $stu . $studentStatusInfo
+            ]
+        ];
+        return Http::post($this->comLessonWatchBotUrl, $data)->json();
     }
 }
