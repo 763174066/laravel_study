@@ -44,7 +44,7 @@ class LessonWatch implements ShouldQueue
             'pageSize' => 50,
             'startTimestamp' => $startTimestamp,
             'endTimestamp' => $endTimestamp,
-            'classTimeStatus' => '1',
+            'classTimeStatus' => '2',
             'classStatus' => 0,
             'classType' => 1,
             'sort' => 0,

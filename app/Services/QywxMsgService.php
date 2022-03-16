@@ -61,6 +61,6 @@ class QywxMsgService
                               >**中教：**' . $stu . $studentStatusInfo
             ]
         ];
-        return Http::post($this->jsbTestBotUrl, $data)->json();
+        return Http::post($this->comLessonWatchBotUrl, $data)->json();
     }
 }
