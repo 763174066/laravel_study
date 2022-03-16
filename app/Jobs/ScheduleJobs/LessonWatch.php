@@ -118,12 +118,12 @@ class LessonWatch implements ShouldQueue
                         $class->teacher_late_notice_times++;
                     }
                 }
-                if ($tStatus != 1 || $stuStatus != 1) {
-                    if ($class->student_late_notice_times > 1 && $class->teacher_late_notice_times > 1) {
+                if ($studentNotInClass || $teacherNotInClass) {
+                    if ($class->student_late_notice_times > 1 || $class->teacher_late_notice_times > 1) {
                         return;
                     }
 
-//                    $msgService->sendWatchInfo($lessonName, $teacher, $tStatus, $stu, $stuStatus, $stuPhone);
+                    $msgService->sendWatchInfo($lessonName, $teacher, $tStatus, $stu, $stuStatus, $stuPhone);
                 }
 
             }
