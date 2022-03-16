@@ -60,7 +60,9 @@ class QywxMsgService
      */
     public function sendWatchInfo($lesson, $teacher, $tStatus, $stu, $stuStatus, $stuPhone)
     {
-        $lesson = str_replace('*','_',$lesson);  //将课节名称中的*替换为_，防止机器人识别错误
+        $lesson = str_replace('*','_',$lesson);  //将*替换为_，防止机器人识别错误
+        $teacher = str_replace('*','_',$teacher);  //将*替换为_，防止机器人识别错误
+        $stu = str_replace('*','_',$stu);  //将*替换为_，防止机器人识别错误
 
         $teacherStatusInfo = $tStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。';
 
@@ -70,12 +72,12 @@ class QywxMsgService
         $data = [
             'msgtype' => 'markdown',
             'markdown' => [
-                'content' => '>#### 课节：' . $lesson . '，已开始
-                              >#### 外教：' . $teacher . $teacherStatusInfo . '
-                              >#### 中教：' . $stu . $studentStatusInfo
+                'content' => '>**课节：**' . $lesson . '，已开始
+                              >**外教：**' . $teacher . $teacherStatusInfo . '
+                              >**中教：**' . $stu . $studentStatusInfo
             ]
         ];
-        
+
         return Http::post($this->comLessonWatchBotUrl, $data)->json();
     }
 }
