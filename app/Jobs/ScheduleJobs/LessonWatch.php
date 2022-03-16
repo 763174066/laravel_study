@@ -94,6 +94,7 @@ class LessonWatch implements ShouldQueue
                     if ($class->student_late_notice_times <= 1) {
                         //通知3次后停止通知
                         $class->increment('student_late_notice_times');
+                        $class->student_late_notice_times++;
                     }
                 }
 
@@ -114,6 +115,7 @@ class LessonWatch implements ShouldQueue
                     if ($class->teacher_late_notice_times <= 1) {
                         //通知3次后停止通知
                         $class->increment('teacher_late_notice_times');
+                        $class->teacher_late_notice_times++;
                     }
                 }
                 if ($tStatus != 1 || $stuStatus != 1) {
