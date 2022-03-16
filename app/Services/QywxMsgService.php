@@ -68,7 +68,7 @@ class QywxMsgService
         $data = [
             'msgtype' => 'markdown',
             'markdown' => [
-                'content' => '>**课节：**' . $lesson . '，已经上课了
+                'content' => '>**课节：**' . $lesson . '，已开始
                               >**外教：**' . $teacher . $teacherStatusInfo . '
                               >**中教：**' . $stu . $studentStatusInfo
             ]
