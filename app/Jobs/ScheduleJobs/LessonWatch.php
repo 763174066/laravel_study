@@ -123,7 +123,7 @@ class LessonWatch implements ShouldQueue
                         return;
                     }
 
-                    $msgService->sendWatchInfo($lessonName, $teacher, $tStatus, $stu, $stuStatus, $stuPhone);
+//                    $msgService->sendWatchInfo($lessonName, $teacher, $tStatus, $stu, $stuStatus, $stuPhone);
                 }
 
             }
