@@ -55,6 +55,11 @@ class LessonWatch implements ShouldQueue
 
         $url = config('classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
         $res = Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data)->json();
+
+        if($res['error_info']['errno'] != 1){
+            $msgService->sendStudentMsg($res['error_info']['error']);
+        }
+
         if (!empty($res['data']['html'])) {
             foreach ($res['data']['html'] as $lesson) {
                 //课节名称不包含Lesson，表示不是常规课，跳过处理

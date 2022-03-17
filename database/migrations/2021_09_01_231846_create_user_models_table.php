@@ -18,6 +18,7 @@ class CreateUserModelsTable extends Migration
             $table->string('username',20)->unique()->comment('用户名');
             $table->string('password',255)->comment('密码');
             $table->enum('gender',['male','female'])->comment('性别');
+            $table->string('phone')->comment('手机');
             $table->timestamps();
         });
     }

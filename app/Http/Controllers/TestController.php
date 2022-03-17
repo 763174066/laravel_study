@@ -21,34 +21,23 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-
-
-
-        $lesson = '仪陇初一6 人教版*H L1 lesson - 8';
-
-        $new = str_replace('*','-',$lesson);
-        dd($new);
-        $teacher = 'Jack';
-        $student = 'Math';
-        $teacherStatus = 1; //1上线，0未上线
-        $teacherStatusInfo = $teacherStatus ?
-            '，状态：<font color="info">已上线</font>。' :
-            '，状态：<font color="warning">未上线</font>。';
-
-        $studentStatus = 0;
-        $studentPhone = 13368228333;
-        $studentStatusInfo = $studentStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。联系方式：' . $studentPhone;
-
-        $testBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=dcde8c50-c719-4846-b8c1-46a6f55dadbc';
+        $dataArr = getdate();
+        $startTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 00:00:00');
+        $endTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 23:59:59');
         $data = [
-            'msgtype' => 'markdown',
-            'markdown' => [
-                'content' => '># 课节：' . $lesson . '，已开始
-                              ># 外教：' . $teacher . $teacherStatusInfo . '
-                              ># 中教：' . $student . $studentStatusInfo
-            ]
+            'page' => 1,
+            'pageSize' => 50,
+            'startTimestamp' => $startTimestamp,
+            'endTimestamp' => $endTimestamp,
+            'classTimeStatus' => '2', //2上课中，1未开始
+            'classStatus' => 0,
+            'classType' => 1,
+            'sort' => 0,
         ];
-        Http::post($testBotUrl, $data);
+
+        $url = config('classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
+        $res = Http::asForm()->withHeaders(['cookie' => 11])->post($url, $data)->json();
+
     }
 
 
