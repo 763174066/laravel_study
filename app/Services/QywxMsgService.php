@@ -64,9 +64,9 @@ class QywxMsgService
         $teacher = str_replace('*','_',$teacher);  //将*替换为_，防止机器人识别错误
         $stu = str_replace('*','_',$stu);  //将*替换为_，防止机器人识别错误
 
-        $teacherStatusInfo = $tStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。';
+        $teacherStatusInfo = $tStatus ? '，<font color="info">已上线</font>。' : '，<font color="warning">**未上线**</font>。';
 
-        $studentStatusInfo = $stuStatus ? '，状态：<font color="info">已上线</font>。' : '，状态：<font color="warning">未上线</font>。
+        $studentStatusInfo = $stuStatus ? '，<font color="info">已上线</font>。' : '，<font color="warning">**未上线**</font>。
 >**电话**：' . $stuPhone;
 
         $data = [
