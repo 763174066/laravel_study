@@ -50,8 +50,8 @@ class MorningLessonNumQuery implements ShouldQueue
 
         $msgService = new QywxMsgService();
 
-        $url = config('classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
-        $res = Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data)->json();
+        $url = config('Classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
+        $res = Http::asForm()->withHeaders(['cookie' => config('Classin.cookie')])->post($url, $data)->json();
         $msgService->sendStudentMsg('明天早上9点钟之前有'.$res['data']['total'].'节课，请值班人员注意');
     }
 }

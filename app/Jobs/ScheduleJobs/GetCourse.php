@@ -38,8 +38,8 @@ class GetCourse implements ShouldQueue
             'perpage' => 100,
             'courseState' => 1,
         ];
-        $url = config('classin.base_url') . '/saasajax/course.ajax.php?action=getCourseList';
-        $res = Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data)->json();
+        $url = config('Classin.base_url') . '/saasajax/course.ajax.php?action=getCourseList';
+        $res = Http::asForm()->withHeaders(['cookie' => config('Classin.cookie')])->post($url, $data)->json();
         foreach ($res['data']['courseList'] as $item) {
             Course::query()->firstOrCreate([
                 'course_id' => $item['courseId'],

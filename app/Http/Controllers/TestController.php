@@ -23,8 +23,8 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
-        $now = now();
-
+        $time  = strtotime('2022-4-1 +1 month');
+        dd($time);
     }
 
 

@@ -48,7 +48,7 @@ Route::group([
 
 //classin消息订阅
 Route::group([
-    'prefix' => 'classin'
+    'prefix' => 'Classin'
 ], function () {
     Route::post('subscribeMsg', [ClassinMsgController::class, 'index']);
     Route::get('subscribeMsg', [ClassinMsgController::class, 'showSubscribeMsg']);

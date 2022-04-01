@@ -53,8 +53,8 @@ class LessonWatch implements ShouldQueue
 
         $msgService = new QywxMsgService();
 
-        $url = config('classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
-        $res = Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data)->json();
+        $url = config('Classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
+        $res = Http::asForm()->withHeaders(['cookie' => config('Classin.cookie')])->post($url, $data)->json();
 
         if($res['error_info']['errno'] != 1){
             $msgService->sendStudentMsg($res['error_info']['error']);
