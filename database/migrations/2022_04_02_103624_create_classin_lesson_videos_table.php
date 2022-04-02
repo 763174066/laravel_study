@@ -22,6 +22,7 @@ class CreateClassinLessonVideosTable extends Migration
             $table->string('class_name')->nullable()->comment('课节名称');
             $table->dateTime('begin_time')->comment('开始时间');
             $table->string('url')->comment('视频链接');
+            $table->string('has_download')->default('no')->comment('是否下载`yes`是`no`否');
             $table->timestamps();
         });
 

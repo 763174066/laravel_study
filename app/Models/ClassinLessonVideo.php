@@ -17,6 +17,7 @@ class ClassinLessonVideo extends Model
         'class_name',
         'begin_time',
         'url',
+        'has_download',
     ];
 
     protected $dates = [

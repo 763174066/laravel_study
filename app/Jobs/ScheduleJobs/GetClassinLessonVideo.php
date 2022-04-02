@@ -38,7 +38,7 @@ class GetClassinLessonVideo implements ShouldQueue
         Log::info('-----------------开始获取课节视频链接-----------------');
         $data = ClassinOldLessonInfo::query()
             ->oldest()
-            ->limit(10)
+            ->limit(100)
             ->where('has_get_download_link', ClassinOldLessonInfo::HAS_GET_DOWNLOAD_LINK_NO)
             ->get();
 
