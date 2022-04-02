@@ -12,6 +12,8 @@ class OldLessonNum extends Model
     protected $fillable = [
       'year',
       'month',
+      'start_time',
+      'end_time',
       'num',
       'per_page',
       'total_page',

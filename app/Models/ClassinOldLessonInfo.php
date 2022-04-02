@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ClassinOldLessonInfo extends Model
 {
     use HasFactory;
+
     protected $table = 'classin_old_lesson_infos';
     protected $fillable = [
         'course_id',
@@ -19,6 +20,19 @@ class ClassinOldLessonInfo extends Model
         'has_get_download_link',
     ];
 
+    protected $dates = [
+        'begin_time',
+        'end_time',
+    ];
+
     const HAS_GET_DOWNLOAD_LINK_YES = 'yes';
     const HAS_GET_DOWNLOAD_LINK_NO = 'no';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function videos()
+    {
+        return $this->hasMany(ClassinLessonVideo::class);
+    }
 }

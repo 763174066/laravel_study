@@ -9,13 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class EeoService
 {
-    protected $client;
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * 获取eeo数据
      * @param string $path
@@ -25,12 +18,13 @@ class EeoService
      */
     public function eeoRequest(string $path, array $data, string $method = 'post')
     {
-        $url = config('Classin.base_url') . $path;
+        $url = config('classin.base_url') . $path;
+
         if ($method == 'post') {
-            return Http::asForm()->withHeaders(['cookie' => config('Classin.cookie')])->post($url, $data)->json();
+            return Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data);
         }
         if ($method == 'get') {
-            return Http::asForm()->withHeaders(['cookie' => config('Classin.cookie')])->get($url, $data)->json();
+            return Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->get($url, $data);
         }
 
         return '请求方法错误';

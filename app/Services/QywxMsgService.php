@@ -15,6 +15,7 @@ class QywxMsgService
     private $comLessonWatchBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=95ef0a15-eed7-4cae-8ba4-f6591aad9770';
 
     private $jsbTestBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=dcde8c50-c719-4846-b8c1-46a6f55dadbc';
+    private $jsbLessonDownloadBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=6800d608-4222-4873-9862-232f27653627';
 
     /**
      * 学生信息发送到技术部群
@@ -30,6 +31,22 @@ class QywxMsgService
             ]
         ];
         return Http::post($this->jsbLessonWatchUrl, $data)->json();
+    }
+
+    /**
+     * 发送异常信息到技术部群
+     * @param string $msg
+     * @return array|mixed
+     */
+    public function sendExceptionMsg(string $msg)
+    {
+        $data = [
+            'msgtype' => 'text',
+            'text' => [
+                'content' => $msg
+            ]
+        ];
+        return Http::post($this->jsbLessonDownloadBotUrl, $data)->json();
     }
 
     /**
