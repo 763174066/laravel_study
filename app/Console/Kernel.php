@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\ScheduleJobs\GetClassinLessonVideo;
+use App\Jobs\ScheduleJobs\GetOldLessons;
 use App\Jobs\ScheduleJobs\LessonWatch;
 use App\Jobs\ScheduleJobs\MorningLessonNumQuery;
 use App\Jobs\ScheduleJobs\Test;
@@ -37,6 +38,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new MorningLessonNumQuery())->dailyAt('17:55');
         $schedule->job(new GetClassinLessonVideo())->everyMinute();
         $schedule->job(new Test())->everyMinute();
+//        $schedule->job(new GetOldLessons())->everyMinute();
     }
 
     /**

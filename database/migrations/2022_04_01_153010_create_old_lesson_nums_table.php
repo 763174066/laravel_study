@@ -24,6 +24,7 @@ class CreateOldLessonNumsTable extends Migration
             $table->integer('per_page')->default(100)->comment('每次获取条数');
             $table->integer('total_page')->default(0)->comment('总页数');
             $table->integer('page')->default(1)->comment('当前获取的页码');
+            $table->string('has_get_excel')->default('no')->comment('是否已获取excel表`yes`是`no`否');
             $table->timestamps();
         });
 

@@ -11,7 +11,10 @@ use App\Services\QywxMsgService;
 
 class GetOldLessonsController extends Controller
 {
-
+    /**
+     * 获取指定月份的所有课节
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function getOldLessons()
     {
         $params = $this->validateWith([
@@ -19,7 +22,25 @@ class GetOldLessonsController extends Controller
             'month' => ['int', 'required'],
         ]);
         $data = $this->getOldLessonsNum($params['year'], $params['month']);
-        GetOldLessons::dispatch($data);
+        if(empty($data)){
+           $this->response->ok([
+              'msg' => '获取失败课节数量失败，请检查'
+           ]);
+        }
+    }
+
+    /**
+     * 获取指定月份的视频链接
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getExcel()
+    {
+        $params = $this->validateWith([
+            'year' => ['int', 'required'],
+            'month' => ['int', 'required'],
+        ]);
+
+
     }
 
     /**

@@ -2,10 +2,6 @@
 
 namespace App\Jobs\ScheduleJobs;
 
-use App\Models\ClassinLessonVideo;
-use App\Models\ClassinOldLessonInfo;
-use App\Services\EeoService;
-use App\Services\QywxMsgService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -13,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class Test implements ShouldQueue
+class Test2 implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -35,7 +31,7 @@ class Test implements ShouldQueue
      */
     public function handle()
     {
-        Log::alert('TEST');
+        Log::alert('TEST2');
     }
 
 }
