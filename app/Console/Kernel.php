@@ -2,11 +2,11 @@
 
 namespace App\Console;
 
+use App\Jobs\MyJob;
 use App\Jobs\ScheduleJobs\GetClassinLessonVideo;
 use App\Jobs\ScheduleJobs\GetOldLessons;
 use App\Jobs\ScheduleJobs\LessonWatch;
 use App\Jobs\ScheduleJobs\MorningLessonNumQuery;
-use App\Jobs\ScheduleJobs\Test;
 use App\Jobs\SendHotNews;
 use App\Jobs\WeatherReport;
 use Illuminate\Console\Scheduling\Schedule;
@@ -37,8 +37,8 @@ class Kernel extends ConsoleKernel
         $schedule->job(new LessonWatch())->everyMinute();
         $schedule->job(new MorningLessonNumQuery())->dailyAt('17:55');
         $schedule->job(new GetClassinLessonVideo())->everyMinute();
-        $schedule->job(new Test())->everyMinute();
-//        $schedule->job(new GetOldLessons())->everyMinute();
+        $schedule->job(new GetOldLessons())->everyMinute();
+        $schedule->job(new MyJob())->everyMinute();
     }
 
     /**

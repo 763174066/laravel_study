@@ -1,22 +1,18 @@
 <?php
 
-namespace App\Jobs\ScheduleJobs;
+namespace App\Jobs;
 
-use App\Models\ClassinLessonVideo;
-use App\Models\ClassinOldLessonInfo;
-use App\Services\EeoService;
-use App\Services\QywxMsgService;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class Test implements ShouldQueue
+class MyJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
 
     /**
      * Create a new job instance.
@@ -25,7 +21,7 @@ class Test implements ShouldQueue
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
@@ -35,7 +31,7 @@ class Test implements ShouldQueue
      */
     public function handle()
     {
-        Log::alert('TEST');
+        //
+        Log::info('myjob');
     }
-
 }
