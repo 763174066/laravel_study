@@ -32,6 +32,6 @@ class MyJob implements ShouldQueue
     public function handle()
     {
         //
-        Log::info('myjob');
+        Log::info('myjob.');
     }
 }
