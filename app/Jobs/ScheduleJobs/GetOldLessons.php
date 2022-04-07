@@ -43,6 +43,10 @@ class GetOldLessons implements ShouldQueue
             return;
         }
 
+        if ($num->page == 1) {
+            (new QywxMsgService())->sendExceptionMsg('开始获取' . $num->year . '年' . $num->month . '月的课节信息。');
+        }
+
         Log::info('第' . $num->page . '页开始获取');
         $postData = [
             'page' => $num->page,
@@ -81,7 +85,12 @@ class GetOldLessons implements ShouldQueue
         if ($num->total_page > $num->page) {
             //获取完成后，页码加1
             $num->increment('page');
+
+            if ($num->page == $num->total_page) {
+                (new QywxMsgService())->sendExceptionMsg($num->year . '年' . $num->month . '月的课节信息获取完成。');
+            }
         }
+
         Log::info('-----------------获取课节结束-----------------');
     }
 }
