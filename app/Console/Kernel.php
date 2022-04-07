@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Jobs\MyJob;
 use App\Jobs\ScheduleJobs\GetClassinLessonVideo;
 use App\Jobs\ScheduleJobs\GetOldLessons;
 use App\Jobs\ScheduleJobs\LessonWatch;
@@ -37,8 +36,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new LessonWatch())->everyMinute();
         $schedule->job(new MorningLessonNumQuery())->dailyAt('17:55');
         $schedule->job(new GetClassinLessonVideo())->everyMinute();
-        $schedule->job(new GetOldLessons())->everyMinute();
-        $schedule->job(new MyJob())->everyMinute();
+        $schedule->job(new GetOldLessons())->everyMinute()->withoutOverlapping();
     }
 
     /**

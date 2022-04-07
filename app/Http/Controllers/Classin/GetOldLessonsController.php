@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Classin;
 
+use App\Exports\VideoUrlExport;
 use App\Http\Controllers\Controller;
-use App\Jobs\DispatchJobs\GetOldLessons;
 use App\Models\OldLessonNum;
 use App\Services\EeoService;
 use App\Services\QywxMsgService;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class GetOldLessonsController extends Controller
@@ -19,28 +20,22 @@ class GetOldLessonsController extends Controller
     {
         $params = $this->validateWith([
             'year' => ['int', 'required'],
-            'month' => ['int', 'required'],
+            'month' => ['int', 'required','min:1','max:12'],
         ]);
-        $data = $this->getOldLessonsNum($params['year'], $params['month']);
-        if(empty($data)){
-           $this->response->ok([
-              'msg' => '获取失败课节数量失败，请检查'
-           ]);
+
+        if (OldLessonNum::query()
+            ->where('year', $params['year'])
+            ->where('month', $params['month'])
+            ->exists()) {
+            return $this->response->forbidden('这个月已经读取数据了');
         }
-    }
 
-    /**
-     * 获取指定月份的视频链接
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function getExcel()
-    {
-        $params = $this->validateWith([
-            'year' => ['int', 'required'],
-            'month' => ['int', 'required'],
-        ]);
-
-
+        $data = $this->getOldLessonsNum($params['year'], $params['month']);
+        if (empty($data)) {
+            $this->response->ok([
+                'msg' => '获取失败课节数量失败，请检查'
+            ]);
+        }
     }
 
     /**
@@ -89,5 +84,17 @@ class GetOldLessonsController extends Controller
         return $data;
     }
 
+    /**
+     * 获取指定月份的课节视频链接Excel
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getVideoUrlExcel()
+    {
+        $params = $this->validateWith([
+            'year' => ['required', 'int'],
+            'month' => ['required', 'int'],
+        ]);
 
+        return Excel::download(new VideoUrlExport($params['year'], $params['month']), $params['year'] . '-' . $params['month'] . '.xlsx');
+    }
 }

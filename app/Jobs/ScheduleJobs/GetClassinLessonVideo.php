@@ -17,7 +17,7 @@ class GetClassinLessonVideo implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-
+    public $timeout = 300;
     /**
      * Create a new job instance.
      *

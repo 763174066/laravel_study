@@ -17,7 +17,7 @@ class GetOldLessons implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $timeout = 180;
+    public $timeout = 300;
 
     /**
      * Create a new job instance.
@@ -77,11 +77,11 @@ class GetOldLessons implements ShouldQueue
                 'end_time' => $item['classEtime'],
             ]);
         }
+        Log::info('第' . $num->page . '页获取完成');
         if ($num->total_page > $num->page) {
             //获取完成后，页码加1
             $num->increment('page');
         }
-        Log::info('第' . $num->page . '页获取完成');
         Log::info('-----------------获取课节结束-----------------');
     }
 }
