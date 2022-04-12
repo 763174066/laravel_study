@@ -71,9 +71,8 @@ class GetOldLessons implements ShouldQueue
         }
         //存储课节
         foreach ($res['data']['classList'] as $item) {
-            ClassinOldLessonInfo::query()->firstOrCreate([
-                'lesson_id' => $item['id']
-            ], [
+            ClassinOldLessonInfo::query()->create([
+                'lesson_id' => $item['id'],
                 'course_id' => $item['courseId'],
                 'course_name' => $item['courseName'],
                 'class_name' => $item['className'],
