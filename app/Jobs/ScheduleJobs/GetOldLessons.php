@@ -37,7 +37,7 @@ class GetOldLessons implements ShouldQueue
     public function handle()
     {
         Log::info('-----------------开始获取课节-----------------');
-        $num = OldLessonNum::query()->whereRaw('total_page>page')->oldest()->first();
+        $num = OldLessonNum::query()->whereRaw('total_page>=page')->latest()->first();
         if (empty($num)) {
             Log::info('-----------------没有可获取的课节-----------------');
             return;
@@ -67,7 +67,7 @@ class GetOldLessons implements ShouldQueue
         }
         //存储课节
         foreach ($res['data']['classList'] as $item) {
-            ClassinOldLessonInfo::query()->create([
+            $lesson = ClassinOldLessonInfo::query()->create([
                 'lesson_id' => $item['id'],
                 'course_id' => $item['courseId'],
                 'course_name' => $item['courseName'],
@@ -75,12 +75,13 @@ class GetOldLessons implements ShouldQueue
                 'begin_time' => $item['classBtime'],
                 'end_time' => $item['classEtime'],
             ]);
+            if (empty($lesson)) {
+                Log::error('存储失败', $item);
+            }
         }
         Log::info('第' . $num->page . '页获取完成');
-        if ($num->total_page > $num->page) {
-            //获取完成后，页码加1
-            $num->increment('page');
-        }
+        //获取完成后，页码加1
+        $num->increment('page');
 
         Log::info('-----------------获取课节结束-----------------');
     }
