@@ -27,7 +27,7 @@ class LoginController extends Controller
 
         $user = UserModel::where('username', $params['username'])->first();
 
-        if (!auth('oa')->attempt($params) || !$user) {
+        if (!auth('app')->attempt($params) || !$user) {
 
             //密码错误时，登录次数+1
             $loginErrorTimes = Redis::get($RedisUsername) ?? 0;
@@ -36,14 +36,14 @@ class LoginController extends Controller
             return $this->response->unauthorized('账号或者密码错误');
         }
 
-        auth('oa')->login($user);
+        auth('app')->login($user);
 
         return $this->response->ok($user);
     }
 
     public function logout()
     {
-        auth('oa')->logout();
+        auth('app')->logout();
         return $this->response->ok(['msg' => '退出登录']);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Jobs\ScheduleJobs;
 
 use App\Models\ClassListener;
+use App\Models\Watchman;
 use App\Services\QywxMsgService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,8 +35,8 @@ class MorningLessonNumQuery implements ShouldQueue
     public function handle()
     {
         $dataArr = getdate();
-        $startTimestamp = strtotime($dataArr['year'].'-'.$dataArr['mon'].'-'.$dataArr['mday'].' 06:00:00 +1 day');
-        $endTimestamp = strtotime($dataArr['year'].'-'.$dataArr['mon'].'-'.$dataArr['mday'].' 09:00:00 +1 day');
+        $startTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 06:00:00 +1 day');
+        $endTimestamp = strtotime($dataArr['year'] . '-' . $dataArr['mon'] . '-' . $dataArr['mday'] . ' 09:00:00 +1 day');
 
         $data = [
             'page' => 1,
@@ -52,6 +53,10 @@ class MorningLessonNumQuery implements ShouldQueue
 
         $url = config('classin.base_url') . '/saasajax/teaching.ajax.php?action=getClassInfo';
         $res = Http::asForm()->withHeaders(['cookie' => config('classin.cookie')])->post($url, $data)->json();
-        $msgService->sendStudentMsg('明天早上9点钟之前有'.$res['data']['total'].'节课，请值班人员注意');
+
+        $watch = Watchman::query()->whereDate('date', now()->addDays(1))->first();
+        if (!empty($watch->user)) {
+            (new QywxMsgService())->sendWatchmenMsg($watch->user, $res['data']['total']);
+        }
     }
 }

@@ -18,8 +18,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $params = $request->validate([
-            'username' => ['required', 'min:3', 'string'],
-            'password' => ['required', 'min:6']
+            'username' => ['required', 'min:2', 'string'],
+            'password' => ['required', 'min:6'],
+            'phone' => ['required', 'string'],
         ]);
 
         //检查用户名是否已存在

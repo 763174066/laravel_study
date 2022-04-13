@@ -11,11 +11,17 @@ class UserModel extends User
 {
     use HasFactory;
 
-    protected $fillable = ['username','password'];
+    protected $fillable = [
+        'username',
+        'password',
+        'gender',
+        'phone',
+    ];
 
     protected $hidden = ['password'];
 
-    public function express(){
+    public function express()
+    {
         return $this->hasMany(Expresses::class);
     }
 }

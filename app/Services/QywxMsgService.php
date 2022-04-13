@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\UserModel;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,24 @@ class QywxMsgService
             'msgtype' => 'text',
             'text' => [
                 'content' => $msg
+            ]
+        ];
+        return Http::post($this->jsbLessonWatchUrl, $data)->json();
+    }
+
+    /**
+     * 发送值班人员信息到技术部群
+     * @param UserModel $user
+     * @param $lessonNum
+     * @return array|mixed
+     */
+    public function sendWatchmenMsg(UserModel $user, $lessonNum)
+    {
+        $data = [
+            'msgtype' => 'text',
+            'text' => [
+                'content' => '明日值班人员：' . $user->username . '，早上9:00之前有' . $lessonNum . '节课，请注意查看',
+                "mentioned_mobile_list" => [$user->phone]
             ]
         ];
         return Http::post($this->jsbLessonWatchUrl, $data)->json();
@@ -77,9 +96,9 @@ class QywxMsgService
      */
     public function sendWatchInfo($lesson, $teacher, $tStatus, $stu, $stuStatus, $stuPhone)
     {
-        $lesson = str_replace('*','_',$lesson);  //将*替换为_，防止机器人识别错误
-        $teacher = str_replace('*','_',$teacher);  //将*替换为_，防止机器人识别错误
-        $stu = str_replace('*','_',$stu);  //将*替换为_，防止机器人识别错误
+        $lesson = str_replace('*', '_', $lesson);  //将*替换为_，防止机器人识别错误
+        $teacher = str_replace('*', '_', $teacher);  //将*替换为_，防止机器人识别错误
+        $stu = str_replace('*', '_', $stu);  //将*替换为_，防止机器人识别错误
 
         $teacherStatusInfo = $tStatus ? '，<font color="info">已上线</font>。' : '，<font color="warning">**未上线**</font>。';
 

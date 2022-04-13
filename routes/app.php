@@ -28,9 +28,9 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'auth:oa',
+    'middleware' => 'auth:app',
 ], function () {
-    $files = File::allFiles(__DIR__ . '/oa');
+    $files = File::allFiles(__DIR__ . '/app');
     foreach ($files as $file) {
         if ($file->getExtension() == 'php') {
             require_once $file;

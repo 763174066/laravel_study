@@ -31,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
 
-        require base_path('routes/oa.php');
+        require base_path('routes/app.php');
     }
 
     /**
@@ -56,9 +56,9 @@ class RouteServiceProvider extends ServiceProvider
             //自定义路由文件
             Route::middleware('web')
                 ->namespace($this->namespace)
-                ->domain(config('oa.domain'))
+                ->domain(config('app.domain'))
                 ->prefix('api')
-                ->group(base_path('routes/oa.php'));
+                ->group(base_path('routes/app.php'));
         });
     }
 

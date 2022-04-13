@@ -1,4 +1,4 @@
 <?php
 return [
-  'oa' => env('APP_DOMAIN')
+  'app' => env('APP_DOMAIN')
 ];

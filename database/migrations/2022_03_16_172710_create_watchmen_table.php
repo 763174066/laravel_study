@@ -16,8 +16,9 @@ class CreateWatchmenTable extends Migration
     {
         Schema::create('watchmen', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('id');
-            $table->date('date')->comment('日期');
-            $table->bigInteger('user_id')->comment('用户id');
+            $table->date('date')->nullable()->comment('日期');
+            $table->string('week')->nullable()->comment('星期');
+            $table->bigInteger('user_id')->nullable()->comment('用户id');
             $table->softDeletes();
             $table->timestamps();
         });
