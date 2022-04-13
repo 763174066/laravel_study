@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Classin;
 
 use App\Exports\VideoUrlExport;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\VideoUrlCollection;
 use App\Models\ClassinLessonVideo;
 use App\Models\ClassinOldLessonInfo;
 use App\Models\OldLessonNum;
@@ -96,10 +97,10 @@ class GetOldLessonsController extends Controller
             'year' => ['required', 'int'],
             'month' => ['required', 'int'],
         ]);
-
+        
         $hasData = OldLessonNum::query()
-            ->where('year', $this->year)
-            ->where('month', $this->month)
+            ->where('year', $params['year'])
+            ->where('month', $params['month'])
             ->whereRaw('total_page<page')
             ->exists();
         if (!$hasData) {

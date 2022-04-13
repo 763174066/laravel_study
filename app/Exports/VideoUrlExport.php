@@ -25,9 +25,9 @@ class VideoUrlExport implements FromCollection
     }
 
     /**
-     * @return Collection
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|Collection
      */
-    public function collection(): Collection
+    public function collection()
     {
         $data = ClassinLessonVideo::query()
             ->whereYear('begin_time', $this->year)
