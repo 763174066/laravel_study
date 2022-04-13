@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Classin;
 
 use App\Exports\VideoUrlExport;
 use App\Http\Controllers\Controller;
+use App\Models\ClassinLessonVideo;
+use App\Models\ClassinOldLessonInfo;
 use App\Models\OldLessonNum;
 use App\Services\EeoService;
 use App\Services\QywxMsgService;
@@ -20,7 +22,7 @@ class GetOldLessonsController extends Controller
     {
         $params = $this->validateWith([
             'year' => ['int', 'required'],
-            'month' => ['int', 'required','min:1','max:12'],
+            'month' => ['int', 'required', 'min:1', 'max:12'],
         ]);
 
         if (OldLessonNum::query()
@@ -94,6 +96,15 @@ class GetOldLessonsController extends Controller
             'year' => ['required', 'int'],
             'month' => ['required', 'int'],
         ]);
+
+        $hasData = OldLessonNum::query()
+            ->where('year', $this->year)
+            ->where('month', $this->month)
+            ->whereRaw('total_page<page')
+            ->exists();
+        if (!$hasData) {
+            $this->response->forbidden('没有该月份数据');
+        }
 
         return Excel::download(new VideoUrlExport($params['year'], $params['month']), $params['year'] . '-' . $params['month'] . '.xlsx');
     }

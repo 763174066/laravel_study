@@ -11,7 +11,7 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
-        return ClassinOldLessonInfo::query()->whereYear('begin_time',2022)->whereMonth('begin_time',1)->count();
+        return ClassinOldLessonInfo::query()->whereYear('begin_time',2021)->whereMonth('begin_time',12)->count();
     }
 
 

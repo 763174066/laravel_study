@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Http\Resources\VideoUrlCollection;
 use App\Models\ClassinLessonVideo;
 use App\Models\OldLessonNum;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class VideoUrlExport implements FromCollection
@@ -24,23 +25,15 @@ class VideoUrlExport implements FromCollection
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function collection()
+    public function collection(): Collection
     {
-        $hasData = OldLessonNum::query()
-            ->where('year', $this->year)
-            ->where('month', $this->month)
-            ->whereRaw('total_page=page')
-            ->exists();
-        if (!$hasData) {
-            return null;
-        }
-
         $data = ClassinLessonVideo::query()
             ->whereYear('begin_time', $this->year)
             ->whereMonth('begin_time', $this->month)
             ->get();
+
         return VideoUrlCollection::collection($data);
     }
 }
