@@ -43,11 +43,11 @@ class GetOldLessonsController extends Controller
 
     /**
      * 获取指定月份的课节数量，总页数，当前下载页
-     * @param $year
-     * @param $month
+     * @param int $year
+     * @param int $month
      * @return false
      */
-    private function getOldLessonsNum($year, $month)
+    private function getOldLessonsNum(int $year, int $month)
     {
         $startTime = strtotime($year . '-' . $month . '-1');
         $endTime = strtotime($year . '-' . $month . '-1 +1 month');
@@ -97,7 +97,7 @@ class GetOldLessonsController extends Controller
             'year' => ['required', 'int'],
             'month' => ['required', 'int'],
         ]);
-        
+
         $hasData = OldLessonNum::query()
             ->where('year', $params['year'])
             ->where('month', $params['month'])
