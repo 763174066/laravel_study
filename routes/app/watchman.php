@@ -7,7 +7,10 @@ use App\Http\Controllers\WatchmanController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix' => 'watchman'
+    'prefix' => 'watchman',
+    'middleware' => ['check.permission']
 ], function () {
-    Route::post('addMonthDate', [WatchmanController::class, 'addMonthDate']);
+    Route::get('index', [WatchmanController::class, 'index'])->name('watchman.index');
+    Route::post('addMonthDate', [WatchmanController::class, 'addMonthDate'])->name('watchman.addMonthDate');
+    Route::post('test', [WatchmanController::class, 'test'])->name('watchman.test');
 });

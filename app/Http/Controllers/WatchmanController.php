@@ -14,6 +14,8 @@ use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 
 /**
@@ -23,6 +25,11 @@ use Illuminate\Support\Facades\Log;
  */
 class WatchmanController extends Controller
 {
+    public function index(){
+        return 222;
+    }
+
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -38,5 +45,9 @@ class WatchmanController extends Controller
         }
 
         MakeWatchmenDate::dispatch($params['year'], $params['month']);
+    }
+
+    public function test(){
+        return 'watchman.test';
     }
 }
