@@ -12,5 +12,4 @@ Route::group([
 ], function () {
     Route::get('index', [WatchmanController::class, 'index'])->name('watchman.index');
     Route::post('addMonthDate', [WatchmanController::class, 'addMonthDate'])->name('watchman.addMonthDate');
-    Route::post('test', [WatchmanController::class, 'test'])->name('watchman.test');
 });

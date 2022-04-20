@@ -27,8 +27,10 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('parent_id')->nullable()->comment('父级id');
+            $table->string('is_menu')->default('no')->comment('是否菜单：`yes`是`no`否');
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('cn_name');       // For MySQL 8.0 use string('name', 125);
+            $table->string('cn_name')->nullable();       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
 
@@ -42,7 +44,7 @@ class CreatePermissionTables extends Migration
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
             }
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('cn_name');       // For MySQL 8.0 use string('name', 125);
+            $table->string('cn_name')->nullable();       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
             if ($teams || config('permission.testing')) {

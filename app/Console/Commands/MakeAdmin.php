@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Admin;
 use App\Models\UserModel;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 
 class MakeAdmin extends Command
 {
@@ -19,7 +21,7 @@ class MakeAdmin extends Command
      *
      * @var string
      */
-    protected $description = 'Make a admin user';
+    protected $description = '创建超级管理员';
 
     /**
      * Create a new command instance.
@@ -34,25 +36,34 @@ class MakeAdmin extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return void
      */
     public function handle()
     {
-        $user = UserModel::where('username','admin')->first();
-        if($user){
-            $this->info('anmin账号已存在，请直接登录');
-            return null;
-        }
-        try {
-            UserModel::create([
-                'username' => 'admin',
-                'password' => bcrypt('123456')
-            ]);
-            $this->info('账号admin密码123456');
-        }catch (\Exception $exception){
-            $this->info('创建失败');
+        $admin = Admin::query()->first('username');
+        if ($admin) {
+            $this->alert('超级管理员账号已存在，请查看');
+            return;
         }
 
-        return null;
+        $pwd = $this->inputPassword();
+
+        $admin = Admin::query()->create([
+            'username' => 'admin',
+            'password' => Hash::make($pwd)
+        ]);
+
+        $this->info('创建成功');
+        $this->info('账号：admin');
+        $this->info('密码：' . $pwd);
+    }
+
+    private function inputPassword()
+    {
+        $pwd = $this->secret('请输入密码，至少6位！');
+        if (strlen($pwd) < 6) {
+            $this->inputPassword();
+        }
+        return $pwd;
     }
 }

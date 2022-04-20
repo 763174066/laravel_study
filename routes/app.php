@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\system\ClassinMsgController;
-use App\Http\Controllers\system\EasyWechatController;
-use App\Http\Controllers\system\Kuaidi100MsgController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 
 Route::group([
@@ -37,29 +33,3 @@ Route::group([
         };
     }
 });
-
-//easeWechat
-Route::group([
-    'prefix' => 'easyWechat',
-],function (){
-    Route::any('index', [EasyWechatController::class, 'index']);
-    Route::any('getUser', [EasyWechatController::class, 'getUser']);
-});
-
-//classin消息订阅
-Route::group([
-    'prefix' => 'Classin'
-], function () {
-    Route::post('subscribeMsg', [ClassinMsgController::class, 'index']);
-    Route::get('subscribeMsg', [ClassinMsgController::class, 'showSubscribeMsg']);
-});
-
-//快递100消息订阅
-Route::group([
-    'prefix' => 'kuaidi100'
-], function () {
-    Route::post('subscribeMsg', [Kuaidi100MsgController::class, 'index']);
-
-});
-
-
