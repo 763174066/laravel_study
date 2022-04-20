@@ -17,17 +17,7 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
-        $routes = Route::getRoutes();
-        $arr = [];
-        foreach ($routes as $route) {
-            $p = stripos($route->uri, 'api');
-            if ($p === 0) {
-                if (!empty($route->action['as'])) {
-                    array_push($arr, $route->action['as']);
-                }
-            }
-        }
-        return $arr;
+        
     }
 
 
