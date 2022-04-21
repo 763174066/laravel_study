@@ -20,6 +20,7 @@ class TestController extends Controller
     {
         $res = event(new TestEvent(auth()->user()));
         dd($res);
+
     }
 
 

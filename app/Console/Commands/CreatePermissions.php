@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
 
-class MakeAdmin extends Command
+class CreatePermissions extends Command
 {
     /**
      * The name and signature of the console command.
