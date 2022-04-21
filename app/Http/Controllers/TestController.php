@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TestEvent;
 use App\Models\ClassinOldLessonInfo;
 use App\Models\UserModel;
 use App\Models\Watchman;
@@ -17,17 +18,8 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
-        $routes = Route::getRoutes();
-        $arr = [];
-        foreach ($routes as $route) {
-            $p = stripos($route->uri, 'api');
-            if ($p === 0) {
-                if (!empty($route->action['as'])) {
-                    array_push($arr, $route->action['as']);
-                }
-            }
-        }
-        return $arr;
+        $res = event(new TestEvent(auth()->user()));
+        dd($res);
     }
 
 
