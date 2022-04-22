@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\TestEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class TestListener2
 {
@@ -27,5 +28,6 @@ class TestListener2
     public function handle(TestEvent $event)
     {
         //
+        Log::info('触发了事件监听2');
     }
 }
