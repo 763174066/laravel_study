@@ -20,7 +20,7 @@ class TestController extends Controller
     {
         $res = event(new TestEvent(auth()->user()));
 
-        //git testss
+        //git tests
 
     }
 
