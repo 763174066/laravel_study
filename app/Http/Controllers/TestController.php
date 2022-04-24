@@ -11,9 +11,7 @@ class TestController extends Controller
     public function index(Request $request)
     {
         $res = event(new TestEvent(auth()->user()));
-        //git tests
-        //git ...
-        //...
+        //检出
 
     }
 
