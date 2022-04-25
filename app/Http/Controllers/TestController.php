@@ -12,7 +12,7 @@ class TestController extends Controller
     {
         $res = event(new TestEvent(auth()->user()));
         //检出
-
+        //公司提交
     }
 
 
