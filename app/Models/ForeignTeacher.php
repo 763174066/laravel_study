@@ -10,11 +10,12 @@ class ForeignTeacher extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $table = 'foreign_teachers';
     protected $fillable = [
-      'account',
-      'eeo_id',
-      'name',
-      'eeo_u_id',
+        'account',
+        'eeo_id',
+        'name',
+        'eeo_u_id',
     ];
 }

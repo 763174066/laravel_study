@@ -16,31 +16,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ForeignTeacherController extends Controller
 {
-    public function getTeachers(){
-        $path = '/saasajax/teacher.ajax.php?action=getSchoolTeacherFullList';
-        $data = [
-            'page' => 1,
-            'perpage' => 50,
-            'labelIds' => 211873,
-            'status' => 0
-        ];
-
-        $res = (new EeoService())->eeoRequest($path,$data)->json();
-        if($res['error_info']['errno'] != 1){
-            return;
-        }
-        if(empty($res['data']['list'])){
-            return;
-        }
-
-        foreach ($res['data']['list'] as $item){
-            ForeignTeacher::query()->firstOrCreate([
-                'eeo_id' => $item['id'],
-            ],[
-                'account' => $item['account'],
-                'name' => $item['name'],
-                'eeo_u_id' => $item['uid'],
-            ]);
-        }
+    public function getTeachers()
+    {
+        
     }
 }
