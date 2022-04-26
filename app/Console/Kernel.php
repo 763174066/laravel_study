@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new MorningLessonNumQuery())->dailyAt('17:55');
         $schedule->job(new GetClassinLessonVideo())->everyMinute();
         $schedule->job(new GetOldLessons())->everyMinute()->withoutOverlapping();
-        $schedule->job(new QueryForeignTeacher())->everyMinute()->withoutOverlapping();
+        $schedule->job(new QueryForeignTeacher())->everyTwoHours();
     }
 
     /**
