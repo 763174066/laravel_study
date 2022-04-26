@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClassinOldLessonInfo;
-use App\Models\UserModel;
-use App\Models\Watchman;
-use App\Services\EeoService;
-use App\Services\QywxMsgService;
+use App\Events\TestEvent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class TestController extends Controller
 {
 
     public function index(Request $request)
     {
-
+        $res = event(new TestEvent(auth()->user()));
+        //检出
+        //公司提交
     }
 
 
