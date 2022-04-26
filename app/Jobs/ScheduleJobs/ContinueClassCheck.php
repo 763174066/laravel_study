@@ -19,9 +19,6 @@ class ContinueClassCheck implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-
-
-
     /**
      * Create a new job instance.
      *
@@ -45,11 +42,11 @@ class ContinueClassCheck implements ShouldQueue
         $teachers = ForeignTeacher::query()->get();
         $nowArr = getdate(time());
         $todayUnix = (strtotime($nowArr['year'] . '-' . $nowArr['mon'] . '-' . $nowArr['mday']));
-        $tomorrowStart = $todayUnix + 86400;
-        $tomorrowEnd = $todayUnix + 86400 + 86399;
+        $tomorrowStart = $todayUnix + 86400; //查看的明天开始时间
+        $tomorrowEnd = $todayUnix + 86400 + 86399; //查看的明天结束时间
         $content = '明天的外教连堂课，请相关小伙伴注意' . '
         ';
-        $hasContent = false;
+        $hasContent = false; //初始不存在连堂课
         foreach ($teachers as $teacher) {
             $data = [
                 'stId' => $teacher->eeo_id,
@@ -65,28 +62,35 @@ class ContinueClassCheck implements ShouldQueue
                 ]),
             ];
             $res = (new EeoService())->eeoRequest($path, $data)->json();
+
+            //当前老师没有课节
             if (empty($res['data']['teacherClassList'])) {
                 continue;
             }
-            $classes = $res['data']['teacherClassList'];
-            foreach ($classes as $item) {
-                $nextItem = next($classes);
+
+            $classList = $res['data']['teacherClassList']; //课节列表
+            foreach ($classList as $item) {
+                $nextItem = next($classList); //当前课节的下一个课节
+                //如果下一个课节不存在，则跳出本循环
                 if (empty($nextItem)) {
                     break;
                 }
+                //如果当前课节的结束时间 = 下一节课的开始时间，表示是连堂课
                 if ($item['classEtime'] == $nextItem['classBtime']) {
                     $dateArr = getdate($item['classEtime']);
-
                     $minutes = $dateArr['minutes'] == 0 ? '00' : $dateArr['minutes'];
+                    //拼接日期
                     $time = $dateArr['year'] . '-' .
                         $dateArr['mon'] . '-' .
                         $dateArr['mday'] . ' ' .
                         $dateArr['hours'] . ':' . $minutes;
+                    //拼接企业微信机器人文本类容
                     $content .= $this->getString($teacher->name, $time, $item['className'], $nextItem['className']);
-                    $hasContent = true;
+                    $hasContent = true; //存在连堂课
                 }
             }
         }
+        //存在连堂课则发送信息到公司群
         if ($hasContent) {
             (new QywxMsgService())->sendContinuousClass($content);
         }
@@ -94,7 +98,15 @@ class ContinueClassCheck implements ShouldQueue
         Log::info('--------------连堂课检查：结束--------------');
     }
 
-    private function getString($ftname, $time, $preClass, $nextClass)
+    /**
+     * 拼接企业微信机器人发送内容
+     * @param $ftname
+     * @param $time
+     * @param $preClass
+     * @param $nextClass
+     * @return string
+     */
+    private function getString($ftname, $time, $preClass, $nextClass): string
     {
         return '>**外教：**' . '<font color="warning">' . $ftname . '</font>' . '
                 >**时间：**' . $time . '
