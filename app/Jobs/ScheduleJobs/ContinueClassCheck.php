@@ -88,8 +88,7 @@ class ContinueClassCheck implements ShouldQueue
             }
         }
         if ($hasContent) {
-//            (new QywxMsgService())->sendContinuousClass($content);
-            Log::info($content);
+            (new QywxMsgService())->sendContinuousClass($content);
         }
 
         Log::info('--------------连堂课检查：结束--------------');
