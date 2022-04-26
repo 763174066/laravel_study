@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\ScheduleJobs\ContinueClassCheck;
 use App\Jobs\ScheduleJobs\GetClassinLessonVideo;
 use App\Jobs\ScheduleJobs\GetOldLessons;
 use App\Jobs\ScheduleJobs\LessonWatch;
@@ -39,6 +40,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new GetClassinLessonVideo())->everyMinute();
         $schedule->job(new GetOldLessons())->everyMinute()->withoutOverlapping();
         $schedule->job(new QueryForeignTeacher())->everyTwoHours();
+        $schedule->job(new ContinueClassCheck())->everyMinute();
     }
 
     /**
