@@ -9,5 +9,5 @@ Route::group([
 ], function () {
     Route::post('getOldLessons', [GetOldLessonsController::class, 'getOldLessons'])->name('eeo.getOldLessons');
     Route::post('getVideoUrlExcel', [GetOldLessonsController::class, 'getVideoUrlExcel'])->name('eeo.getVideoUrlExcel');
-    Route::get('getForeignTeachers',[ForeignTeacherController::class,'getTeachers']);
+    Route::get('getForeignTeachers',[ForeignTeacherController::class,'getForeignTeachers']);
 });

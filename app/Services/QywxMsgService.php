@@ -73,7 +73,7 @@ class QywxMsgService
      * @param string $msg
      * @return array|mixed
      */
-    public function sendTeacherMsg(string $msg)
+    public function sendTeacherMsg(string $msg): array
     {
         $data = [
             'msgtype' => 'text',
@@ -111,6 +111,18 @@ class QywxMsgService
                 'content' => '>**课节：**' . $lesson . '，已开始
                               >**外教：**' . $teacher . $teacherStatusInfo . '
                               >**中教：**' . $stu . $studentStatusInfo
+            ]
+        ];
+
+        return Http::post($this->comLessonWatchBotUrl, $data)->json();
+    }
+
+    public function sendContinuousClass($content)
+    {
+         $data = [
+            'msgtype' => 'markdown',
+            'markdown' => [
+                'content' => $content
             ]
         ];
 

@@ -16,8 +16,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ForeignTeacherController extends Controller
 {
-    public function getTeachers()
+    public function getForeignTeachers()
     {
-        
     }
+
+
 }
