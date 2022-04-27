@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\TestEvent;
+use App\Services\QywxMsgService;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -10,9 +11,7 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
-        $res = event(new TestEvent(auth()->user()));
-        //检出
-        //公司提交
+        $res = (new QywxMsgService())->sendHealthNotice();
     }
 
 

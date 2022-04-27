@@ -17,7 +17,7 @@ class QywxMsgService
 
     private $jsbTestBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=dcde8c50-c719-4846-b8c1-46a6f55dadbc';
     private $jsbLessonDownloadBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=6800d608-4222-4873-9862-232f27653627';
-
+    private $comNotice = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=58c425f7-9152-42b6-b64d-fd4880c77a02';
     /**
      * 学生信息发送到技术部群
      * @param string $msg
@@ -117,6 +117,11 @@ class QywxMsgService
         return Http::post($this->comLessonWatchBotUrl, $data)->json();
     }
 
+    /**
+     * 连堂课检测
+     * @param $content
+     * @return array|mixed
+     */
     public function sendContinuousClass($content)
     {
          $data = [
@@ -127,5 +132,18 @@ class QywxMsgService
         ];
 
         return Http::post($this->comLessonWatchBotUrl, $data)->json();
+    }
+
+    public function sendHealthNotice(){
+        $data = [
+            'msgtype' => 'text',
+            'text' => [
+                'content' => '今天你上报健康了吗？点击下方链接快去填写~
+https://work.weixin.qq.com/healthreport/home?type=share&source=hb_noticard&form_id=AMEA-AcEAA4_AMEA-AcE-A4AZgA4QbaAG038a54869981650988800',
+                'mentioned_list' => ['@all']
+            ]
+        ];
+
+        return Http::post($this->comNotice,$data)->json();
     }
 }
