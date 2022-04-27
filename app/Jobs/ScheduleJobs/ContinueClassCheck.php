@@ -85,7 +85,9 @@ class ContinueClassCheck implements ShouldQueue
                         $dateArr['mday'] . ' ' .
                         $dateArr['hours'] . ':' . $minutes;
                     //拼接企业微信机器人文本类容
-                    $content .= $this->getString($teacher->name, $time, $item['className'], $nextItem['className']);
+                    $preClassName = str_replace('*', '_', $item['className']);  //将*替换为_，防止机器人识别错误
+                    $nextClassName = str_replace('*', '_', $nextItem['className']);  //将*替换为_，防止机器人识别错误
+                    $content .= $this->getString($teacher->name, $time, $preClassName, $nextClassName);
                     $hasContent = true; //存在连堂课
                 }
             }
