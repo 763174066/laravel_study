@@ -138,8 +138,7 @@ class QywxMsgService
         $data = [
             'msgtype' => 'text',
             'text' => [
-                'content' => '今天你上报健康了吗？点击下方链接快去填写~
-https://work.weixin.qq.com/healthreport/home?type=share&source=hb_noticard&form_id=AMEA-AcEAA4_AMEA-AcE-A4AZgA4QbaAG038a54869981650988800',
+                'content' => '今天你上报健康了吗？',
                 'mentioned_list' => ['@all']
             ]
         ];
