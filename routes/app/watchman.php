@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'watchman',
-    'middleware' => ['check.permission']
+//    'middleware' => ['check.permission']
 ], function () {
     Route::get('index', [WatchmanController::class, 'index'])->name('watchman.index');
     Route::post('addMonthDate', [WatchmanController::class, 'addMonthDate'])->name('watchman.addMonthDate');
