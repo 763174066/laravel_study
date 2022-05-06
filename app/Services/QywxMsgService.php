@@ -99,7 +99,7 @@ class QywxMsgService
             ]
         ];
 
-        return Http::post($this->jsbLessonDownloadBotUrl, $data)->json();
+        return Http::post($this->jsbLessonWatchUrl, $data)->json();
     }
 
     /**
@@ -116,7 +116,7 @@ class QywxMsgService
             ]
         ];
 
-        return Http::post($this->jsbLessonDownloadBotUrl, $data)->json();
+        return Http::post($this->jsbLessonWatchUrl, $data)->json();
     }
 
     public function sendHealthNotice(){
