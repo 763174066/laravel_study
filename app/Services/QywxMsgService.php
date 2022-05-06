@@ -11,7 +11,8 @@ use Psr\Http\Message\ResponseInterface;
 class QywxMsgService
 {
 
-    private $jsbLessonWatchUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=629e561c-baee-4321-8f43-93867edadf10';
+//    private $jsbLessonWatchUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=629e561c-baee-4321-8f43-93867edadf10';
+    private $jsbLessonWatchUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=aabe41a6-86de-4ac0-925e-f05a712cde6c';
 
     private $comLessonWatchBotUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=95ef0a15-eed7-4cae-8ba4-f6591aad9770';
 
@@ -69,22 +70,6 @@ class QywxMsgService
     }
 
     /**
-     * 外教信息发送到公司群
-     * @param string $msg
-     * @return array|mixed
-     */
-    public function sendTeacherMsg(string $msg): array
-    {
-        $data = [
-            'msgtype' => 'text',
-            'text' => [
-                'content' => $msg
-            ]
-        ];
-        return Http::post($this->comLessonWatchBotUrl, $data)->json();
-    }
-
-    /**
      * 发送监课信息到公司大群
      * @param $lesson
      * @param $teacher
@@ -114,7 +99,7 @@ class QywxMsgService
             ]
         ];
 
-        return Http::post($this->comLessonWatchBotUrl, $data)->json();
+        return Http::post($this->jsbLessonDownloadBotUrl, $data)->json();
     }
 
     /**
@@ -131,7 +116,7 @@ class QywxMsgService
             ]
         ];
 
-        return Http::post($this->comLessonWatchBotUrl, $data)->json();
+        return Http::post($this->jsbLessonDownloadBotUrl, $data)->json();
     }
 
     public function sendHealthNotice(){
