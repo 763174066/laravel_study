@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new GetOldLessons())->everyMinute()->withoutOverlapping();
         $schedule->job(new QueryForeignTeacher())->everyTwoHours();
         $schedule->job(new ContinueClassCheck())->dailyAt('17:55');
-        $schedule->job(new HealthReportNotice())->dailyAt('20:00');
+//        $schedule->job(new HealthReportNotice())->dailyAt('20:00');
     }
 
     /**
